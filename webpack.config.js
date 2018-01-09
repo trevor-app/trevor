@@ -1,5 +1,12 @@
-var path = require('path')
-var webpack = require('webpack')
+const DotenvPlugin = require('dotenv-webpack');
+const path = require('path')
+const webpack = require('webpack')
+
+const __root = path.join(__dirname)
+
+function resolvePath (directory) {
+  return path.join(__root, 'src', directory || '')
+}
 
 module.exports = {
   entry: './src/main.js',
@@ -8,6 +15,9 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  plugins: [
+    new DotenvPlugin()
+  ],
   module: {
     rules: [
       {
@@ -71,7 +81,12 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      'assets': resolvePath('assets'),
+      'views': resolvePath('views'),
+      'components': resolvePath('components'),
+      'store': resolvePath('store'),
+      'router': resolvePath('router')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
