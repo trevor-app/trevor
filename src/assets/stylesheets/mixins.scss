@@ -1,0 +1,30 @@
+@import './constants';
+
+@mixin font-base {
+  font-family: $font-family;
+}
+
+@mixin font-logo {
+  @include font-base;
+  letter-spacing: $letter-spacing;
+  text-transform: uppercase;
+  font-weight: $font-weight-normal;
+}
+
+
+@mixin border-radius {
+
+}
+
+@mixin reset-base {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+@mixin reset-input {
+  @include reset-base;
+}

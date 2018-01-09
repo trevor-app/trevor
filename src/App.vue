@@ -1,60 +1,85 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div class="app">
+    <div class="app-header">
+      <div class="app-header__container">
+        <div class="app-header__title">
+          <router-link :to="{ path: '/'}">Trevor</router-link>
+        </div>
+        <div class="app-header__content">
+          <router-view name="header"></router-view>
+        </div>
+      </div>
+    </div>
+    <div class="app-content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+  name: 'app'
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import '~assets/stylesheets/constants';
+@import '~assets/stylesheets/mixins';
+
+$app-header-size: 5px;
+
+body {
+  margin: 0;
 }
 
-h1, h2 {
-  font-weight: normal;
+.app-content {
+  width: 100%;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.app-header {
+  padding: $app-header-size 0;
 }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
+.app-header__container {
+  max-width: $container-max-width;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
-a {
-  color: #42b983;
+.app-header__content {
+  width: 100%;
+}
+
+.app-header {
+  background-color: $color-dark-side-grey;
+  &__title {
+    @include font-logo;
+    padding: 10px 5px;
+    font-size: 1.25em;
+    align-self: flex-start;
+    a {
+      color: $color-lightest-grey;
+      text-decoration: none;
+    }
+  }
+}
+
+@media (min-width:768px) {
+  .app-header {
+    padding: $app-header-size;
+  }
+  .app-header__container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .app-header__title {
+  }
+  .app-header__content {
+    width: 30%;
+  }
 }
 </style>
