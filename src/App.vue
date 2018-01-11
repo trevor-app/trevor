@@ -34,6 +34,7 @@ body {
 
 .app-content {
   width: 100%;
+  background: $color-dark-white;
 }
 
 .app-header {
@@ -41,9 +42,7 @@ body {
 }
 
 .app-header__container {
-  max-width: $container-max-width;
-  margin: auto;
-  display: flex;
+  @include container;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

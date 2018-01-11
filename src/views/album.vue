@@ -1,27 +1,29 @@
 <template>
   <div class="album">
-    <div v-show="hasStatus('succeeded')">
-      <img :src="album.image" />
-      <h1>{{ album.name }}</h1>
-      <h2>{{ album.artist }}</h2>
-      <div v-html="album.summary"></div>
-    </div>
+    <template v-show="hasStatus('succeeded')">
+      <album-header :album="album"></album-header>
+    </template>
     <template v-if="hasStatusStoresAlbumItems('fetching')">
       Fetching...
     </template>
     <template v-else>
-      <album-items-list :items="items"></album-items-list>
+      <div class="album-items">
+        <h3 class="album-items__title">Best price online</h3>
+        <album-items-list :items="items"></album-items-list>
+      </div>
     </template>
   </div>
 </template>
 
 <script>
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
+import AlbumHeader from 'components/album-header.vue'
 import AlbumItemsList from 'components/album-items-list'
 
 export default {
   name: 'album',
   components: {
+    AlbumHeader,
     AlbumItemsList
   },
   props: {
@@ -68,5 +70,19 @@ export default {
 @import '~assets/stylesheets/mixins';
 
 .album {
+  @include font-base;
+  @include content;
+  flex-flow: column;
 }
+
+.album-items {
+  padding: 16px 0;
+
+  &__title {
+    margin: 8px 0;
+    font-weight: $font-weight-normal;
+  }
+}
+
+
 </style>

@@ -20,7 +20,8 @@ export default {
         state.query = query
       },
       setCollection (state, collection) {
-        state.collection = collection
+        // Only results with MBID.
+        state.collection = collection.filter(result => !isEmpty(result.mbid))
       }
     },
     actions: {

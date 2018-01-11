@@ -28,3 +28,22 @@
 @mixin reset-input {
   @include reset-base;
 }
+
+@mixin container {
+  max-width: $container-max-width;
+  margin: auto;
+  display: flex;
+}
+
+@mixin content {
+  @include container;
+  background: $color-pure-white;
+  padding: 16px;
+  min-height: 90vh;
+}
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

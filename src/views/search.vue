@@ -1,31 +1,23 @@
 <template>
-  <div class="suggestions">
+  <div class="search">
+    <h1>Results for '{{ query }}'</h1>
     <template v-if="hasStatus('searching')">
       Searching...
     </template>
-    <div v-for="suggestion in collection">
-      <router-link
-        tag="div"
-        class="suggestion"
-        :to="{ name: suggestion.type, params: { id: suggestion.mbid } }">
-          <div class="suggestion__name">
-            {{ suggestion.name }}
-          </div>
-          <div class="suggestion__type">
-            {{ suggestion.type }}
-          </div>
-          <img :src="suggestion.image"/>
-        </router-link>
-    </div>
+    <search-results-list :results="collection"></search-results-list>
   </div>
 </template>
 
 <script>
 import { get } from 'lodash'
 import { mapState, mapActions, mapGetters } from 'vuex'
+import SearchResultsList from 'components/search-results-list.vue'
 
 export default {
   name: 'search',
+  components: {
+    SearchResultsList
+  },
   computed: {
     ...mapState('search', [
       'collection',
@@ -34,6 +26,9 @@ export default {
     ...mapGetters('search', [
       'hasStatus'
     ]),
+    query () {
+      return this.$route.query.query
+    }
   },
   methods: {
     ...mapActions('search', [
@@ -57,7 +52,9 @@ export default {
 @import '~assets/stylesheets/constants';
 @import '~assets/stylesheets/mixins';
 
-.suggestions {
+.search {
+  @include content;
+  flex-flow: column;
 }
 
 .suggestion {
