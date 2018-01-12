@@ -1,13 +1,8 @@
 <template lang="html">
-  <div class="search-results-list-item">
-    <router-link tag="div" :to="resultRoute">
-      <div class="result__name">
-        {{ result.name }}
-      </div>
-      <div class="result__type">
-        {{ result.type }}
-      </div>
-      <img :src="result.image"/>
+  <div class="">
+    <router-link class="search-results-list-item" :to="resultRoute">
+      <img class="search-results-list-item__image" :src="result.image" />
+      <div class="search-results-list-item__name">{{ result.name }}</div>
     </router-link>
   </div>
 </template>
@@ -38,7 +33,25 @@ export default {
 @import '~assets/stylesheets/constants';
 @import '~assets/stylesheets/mixins';
 
-.search-results-list {
+$search-results-list-item__width: 155px;
 
+.search-results-list-item {
+  @include font-base;
+  width: $search-results-list-item__width;
+  display: inline-block;
+  margin-bottom: 16px;
+  margin-right: 16px;
+
+  &__image {
+    width: $search-results-list-item__width;
+    height: $search-results-list-item__width;
+  }
+
+  &__name {
+    @include text-ellipsis;
+    font-size: 13px;
+    margin-bottom: 2px;
+    font-weight: $font-weight-normal;
+  }
 }
 </style>

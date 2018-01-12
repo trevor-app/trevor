@@ -33,6 +33,5 @@ export default {
 .artist-albums-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
 }
 </style>

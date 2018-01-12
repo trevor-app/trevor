@@ -37,6 +37,7 @@ $artist-albums-list-item__width: 155px;
   width: $artist-albums-list-item__width;
   display: inline-block;
   margin-bottom: 16px;
+  margin-right: 16px;
 
   &__cover {
     width: $artist-albums-list-item__width;
