@@ -41,7 +41,7 @@ export default {
     ]),
     ...mapGetters('storesAlbumItems', {
       'hasStatusStoresAlbumItems': 'hasStatus',
-      'items': 'items'
+      'items': 'itemsSorted'
     })
   },
   methods: {
