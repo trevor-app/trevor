@@ -8,13 +8,11 @@
     <div class="album-items-list-item__info">
       <div class="album-items-list-item__description">
         <ul>
-          <li>{{ item.title }}</li>
+          <li class="album-items-list-item__description__title">{{ item.title }}</li>
           <li class="album-items-list-item__description__artist">{{ item.artist }}</li>
-          <li>
-            {{ format }}
-            <span
-              v-if="item.isUsed"
-              class="album-items-list-item__description__used">
+          <li class="album-items-list-item__description__format">{{ format }}</li>
+          <li v-if="item.isUsed">
+            <span class="album-items-list-item__description__used">
               Used
             </span>
           </li>
@@ -82,7 +80,6 @@ $album-items-list-item__price__amount-padding-bottom: 5px;
 
 .album-items-list-item {
   @include font-base;
-  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: $color-light-black;
   &__description {}
@@ -91,8 +88,8 @@ $album-items-list-item__price__amount-padding-bottom: 5px;
 
 .album-items-list-item {
   cursor: pointer;
-  line-height: 1.1em;
-  font-size: 0.8em;
+  line-height: 1.2em;
+  font-size: 12px;
   flex: 1 0 100%;
   display: flex;
   justify-content: space-between;
@@ -117,18 +114,24 @@ $album-items-list-item__price__amount-padding-bottom: 5px;
 }
 
 .album-items-list-item__description {
-  font-size: 0.6em;
+  font-size: 11px;
   flex: 0 1 100%;
   padding: $album-items-list-item__description-padding;
   align-self: center;
+
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
+
+  &__title {
+    font-weight: $font-weight-bold;
+  }
 }
 
 .album-items-list-item__description__used {
+  font-size: 10px;
   text-transform: uppercase;
   color: $color-pure-white;
   background-color: $color-darker-grey;
@@ -137,14 +140,15 @@ $album-items-list-item__price__amount-padding-bottom: 5px;
 }
 
 .album-items-list-item__price {
+  font-size: 10px;
   flex: 0 1 40%;
   align-self: center;
-  font-size: 0.6em;
   text-align: right;
 }
 
 .album-items-list-item__price__amount {
-  font-size: 2em;
+  font-size: 16px;
+  font-weight: 500;
   padding-bottom: $album-items-list-item__price__amount-padding-bottom;
 }
 
@@ -188,10 +192,7 @@ $album-items-list-item__price__amount-padding-bottom: 5px;
     padding-top: $album-items-list-item__price__amount-padding-bottom;
   }
   .album-items-list-item__description__artist {
-    font-weight: $font-weight-medium;
-  }
-  .album-items-list-item__price__store {
-    color: $color-grey;
+    // font-weight: $font-weight-medium;
   }
 }
 </style>
