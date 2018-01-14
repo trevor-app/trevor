@@ -1,7 +1,7 @@
 <template>
   <div class="album-items-list">
     <template v-for="item in items">
-      <AlbumItemsListItem :key="item.url" :item="item"></AlbumItemsListItem>
+      <AlbumItemsListItem :key="item.id" :item="item"></AlbumItemsListItem>
     </template>
     <div v-if="items.length === 0">
       Nothing found.
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { assign } from 'lodash'
+import { assign, pick } from 'lodash'
 import AlbumItemsListItem from 'components/album-items-list-item'
 
 export default {
@@ -22,6 +22,11 @@ export default {
     items: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    itemId (item) {
+      return [item.store, item.url, item.isUsed].join('-')
     }
   }
 }

@@ -3,7 +3,7 @@
     class="album-items-list-item"
     @click="handleClick">
     <div class="album-items-list-item__image">
-      <img :src="item.imageUrl"/>
+      <trevor-image type="album" :src="item.imageUrl"></trevor-image>
     </div>
     <div class="album-items-list-item__info">
       <div class="album-items-list-item__description">
@@ -32,9 +32,13 @@
 
 <script>
 import { round, padEnd } from 'lodash'
+import TrevorImage from 'components/trevor-image.vue'
 
 export default {
   name: 'app-items-list-item',
+  components: {
+    TrevorImage
+  },
   props: {
     item: {
       type: Object,

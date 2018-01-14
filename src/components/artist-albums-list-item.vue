@@ -1,14 +1,20 @@
 <template lang="html">
   <router-link class="artist-albums-list-item" :to="albumRoute">
-    <img class="artist-albums-list-item__cover" :src="album.image" />
+    <trevor-image class="artist-albums-list-item__cover" :src="album.image" type="album">
+    </trevor-image>
     <div class="artist-albums-list-item__name">{{ album.name }}</div>
     <div class="artist-albums-list-item__artist">{{ album.artist }}</div>
   </router-link>
 </template>
 
 <script>
+import TrevorImage from 'components/trevor-image.vue'
+
 export default {
   name: 'artist-albums-list-item',
+  components: {
+    TrevorImage
+  },
   props: {
     album: {
       type: Object,

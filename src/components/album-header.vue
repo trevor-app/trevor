@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="album-header">
-    <img :src="album.image" />
+    <trevor-image type="album" :src="album.image"></trevor-image>
     <div class="album-header__info">
       <h1 class="album-header__name">
         <router-link :to="albumRoute">
@@ -18,8 +18,13 @@
 </template>
 
 <script>
+import TrevorImage from 'components/trevor-image.vue'
+
 export default {
   name: 'album-header',
+  components: {
+    TrevorImage
+  },
   props: {
     album: {
       type: Object,

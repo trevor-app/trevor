@@ -1,4 +1,4 @@
-import { isEmpty, assign, get } from 'lodash'
+import { isEmpty, assign, get, pick } from 'lodash'
 import * as api from 'store/api/stores-api.js'
 
 function sortItemByPriceInCentsAsc(a, b) {
@@ -6,7 +6,6 @@ function sortItemByPriceInCentsAsc(a, b) {
   if (a.priceInCents < b.priceInCents) return -1
   return 0
 }
-
 
 function sortItemByNameAsc (a, b) {
   let nameA = a.title.trim().toLowerCase(),

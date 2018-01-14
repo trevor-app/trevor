@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="artist-header">
-    <img :src="artist.image" />
+    <trevor-image type="artist" :src="artist.image"></trevor-image>
     <div class="album-header__info">
       <h1 class="artist-header__name">
         <router-link :to="artistRoute">
@@ -13,8 +13,13 @@
 </template>
 
 <script>
+import TrevorImage from 'components/trevor-image.vue'
+
 export default {
   name: 'artist-header',
+  components: {
+    TrevorImage
+  },
   props: {
     artist: {
       type: Object,
