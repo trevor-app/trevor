@@ -51,7 +51,7 @@ export default {
       let matches = price.match(/(\d*)\.?(\d*)?/)
       if (matches) {
         let [ total, dollar, cent ] = matches
-        return  `$${dollar}.${padEnd(cent, 2, '0')}`
+        return  `${this.item.currencyCode} ${dollar}.${padEnd(cent, 2, '0')}`
       }
     },
     format: function () {
