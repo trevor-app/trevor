@@ -47,6 +47,9 @@ export default {
   },
   computed: {
     price: function () {
+      if (this.item.priceInCents === 0) {
+        return 'Free'
+      }
       let price = round(this.item.priceInCents / 100, 2).toString()
       let matches = price.match(/(\d*)\.?(\d*)?/)
       if (matches) {
