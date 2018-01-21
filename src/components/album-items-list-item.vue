@@ -20,7 +20,8 @@
       </div>
       <div class="album-items-list-item__price">
         <div class="album-items-list-item__price__amount">
-          {{ price }}
+          {{ convertedPrice }}
+          <span v-if="price" class="album-items-list-item__price__amount-real-price">({{ price }})</span>
         </div>
         <div class="album-items-list-item__price__store">
           {{item.store}}
@@ -46,10 +47,20 @@ export default {
     }
   },
   computed: {
-    price: function () {
+    convertedPrice: function () {
       if (this.item.priceInCents === 0) {
         return 'Free'
       }
+      let price = round(this.item.baseCurrencyPriceInCents / 100, 2).toString()
+      let matches = price.match(/(\d*)\.?(\d*)?/)
+      if (matches) {
+        let [ total, dollar, cent ] = matches
+        return  `$${dollar}.${padEnd(cent, 2, '0')}`
+      }
+    },
+    price: function () {
+      if (this.item.currencyCode === this.item.baseCurrencyCode) return
+      if (this.item.priceInCents === 0) return
       let price = round(this.item.priceInCents / 100, 2).toString()
       let matches = price.match(/(\d*)\.?(\d*)?/)
       if (matches) {
@@ -157,6 +168,11 @@ $album-items-list-item__price__amount-padding-bottom: 5px;
   font-size: 16px;
   font-weight: 500;
   padding-bottom: $album-items-list-item__price__amount-padding-bottom;
+}
+
+.album-items-list-item__price__amount-real-price {
+  font-size: 10px;
+  font-weight: 500;
 }
 
 @media (max-width:767px) {

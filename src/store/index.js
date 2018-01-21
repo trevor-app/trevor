@@ -6,6 +6,7 @@ import albums from 'store/modules/albums'
 import album from 'store/modules/album'
 import stores from 'store/modules/stores'
 import storesAlbumItems from 'store/modules/stores-album-items'
+import currencies from 'store/modules/currencies'
 
 Vue.use(Vuex)
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     albums,
     album,
     stores,
-    storesAlbumItems
+    storesAlbumItems,
+    currencies
   }
 })

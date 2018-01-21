@@ -2,8 +2,8 @@ import { isEmpty, assign, get, pick } from 'lodash'
 import * as api from 'store/api/stores-api.js'
 
 function sortItemByPriceInCentsAsc(a, b) {
-  if (a.priceInCents > b.priceInCents) return 1
-  if (a.priceInCents < b.priceInCents) return -1
+  if (a.baseCurrencyPriceInCents > b.baseCurrencyPriceInCents) return 1
+  if (a.baseCurrencyPriceInCents < b.baseCurrencyPriceInCents) return -1
   return 0
 }
 
@@ -68,24 +68,41 @@ export default {
         return dispatch('fetchStoresAlbumItems', albumId)
       },
       fetchStoresAlbumItems ({ commit, state, dispatch, rootGetters }, albumId) {
-        // TODO: return items in a Promise
         commit('reset')
         commit('setAlbumId', albumId)
-        dispatch('fetchStoresIfNeeded')
-          .then((storeNames) => {
-            return storeNames.forEach((storeName) => {
-              dispatch('fetchStoreAlbumItems', { storeName, albumId })
+        return dispatch('currencies/fetchRatesIfNeeded', null, { root: true })
+          .then(() => {
+            dispatch('fetchStoresIfNeeded')
+            .then((storeNames) => {
+              return storeNames.forEach((storeName) => {
+                dispatch('fetchStoreAlbumItems', { storeName, albumId })
+              })
             })
           })
       },
-      fetchStoreAlbumItems ({ commit, rootState }, { storeName, albumId }) {
+      fetchStoreAlbumItems ({ commit, rootState, rootGetters }, { storeName, albumId }) {
         commit('setItemsByStore', { storeName, items: [] })
         commit('setErrorByStore', { storeName, error: null })
         commit('setStatusByStore', { storeName, status: 'fetching' })
         return api.fetchStoreAlbumItems(storeName, albumId)
           .then((response) => {
             if (albumId !== rootState.album.id) return
-            const items = response.data
+            const items = response.data.reduce((items, item) => {
+              const rate = rootGetters['currencies/rate'](item.currencyCode)
+              if (item.currencyCode === rootGetters['currencies/base']) {
+                item.baseCurrencyPriceInCents = item.priceInCents
+              } else {
+                // skip if currency rate not available
+                if (item.priceInCents !== 0 && !rate) {
+                  console.log('Empty rate', isEmpty(rate), rate, item.currencyCode);
+                  return items
+                }
+                item.baseCurrencyPriceInCents = item.priceInCents / rate
+              }
+              item.baseCurrencyCode = rootGetters['currencies/base']
+              items.push(item)
+              return items
+            }, [])
             commit('setItemsByStore', { storeName, items })
             commit('setStatusByStore', { storeName, status: 'succeeded' })
           })
